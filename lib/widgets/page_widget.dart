@@ -3,7 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:therealworldflutter_app/blocs/page_bloc.dart';
 import 'package:therealworldflutter_app/models/page_response.dart';
 import 'package:therealworldflutter_app/widgets/page_detail_screen.dart';
-
+import 'package:therealworldflutter_app/services/page_api_provider.dart';
+import 'login_screen.dart';
 class PageWidget extends StatefulWidget {
 
   @override
@@ -17,9 +18,23 @@ class _PageWidget extends State<PageWidget> {
   @override
   void initState() {
     super.initState();
+    pageBloc.doLogin = _doLogin;
+    /*
+    = {
+      return Future<LoginCredentials("Username", "Password");
+    };*/
     pageBloc.getPage();
   }
+  Future<LoginCredentials> _doLogin() async  {
+    final loginScreen = LoginScreen();
 
+    Navigator.push(context, MaterialPageRoute(builder: (context) => loginScreen));
+    LoginCredentials token = await loginScreen.doLogin();
+    return token;
+    /*return Future<LoginCredentials>.delayed(Duration(seconds: 1), () {
+      return LoginCredentials("fregin@me.com", "12345");
+    });*/
+  }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<PageResponse>(

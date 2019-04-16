@@ -4,6 +4,10 @@ import 'package:therealworldflutter_app/models/content_response.dart';
 class PageRepository {
   PageApiProvider _apiProvider = PageApiProvider();
 
+  set doLogin(DoLogin login){
+    _apiProvider.doLogin = login;
+  }
+
   Future<PageResponse> getPage() {
     return _apiProvider.getPage();
   }
